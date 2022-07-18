@@ -1,6 +1,6 @@
 Form:Winlink_Check_out_Initial.html,Winlink_Check_out_Viewer.html
 To:<var MsgTo>
-Subject: Winlink Check Out [<var Status>]-<var MsgSender>-<var Location>
+Subject:<var Newsubject>
 Readonly:True
 Msg:
 -
@@ -31,5 +31,5 @@ Semicolon Delimited Values:
 
 ----------
 <var Templateversion>
-
+Map file name: <var Mapfilename>
 [No changes or editing of this message are allowed]

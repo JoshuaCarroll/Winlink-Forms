@@ -238,6 +238,7 @@ width:40px;
 	font-style: italic;
 }
 .style50 {color: #333333}
+.style52 {font-family: Arial, Helvetica, sans-serif; color: black; }
 </style>
 <script type="text/javascript">
 
@@ -290,6 +291,18 @@ document.getElementById('Organization').value = RightNow;
 document.getElementById('SubjectText').innerHTML = RightNow;
 store();
 }
+function Getsubject() {
+var myprompt = '';
+var temps = document.getElementById('Status').value;
+var templ = document.getElementById('Location').value;
+var tempsender = document.getElementById('MsgSender').value;
+myttemp = "Winlink Check in "+temps + " - " +tempsender + " - " +templ;
+myprompt = "Winlink Check in "+temps + " - " +tempsender + " - " +templ;
+var RightNow = prompt("Message Subject:",   myprompt);
+if (RightNow.length == 0) { RightNow = myttemp}
+document.getElementById('Newsubject').value = RightNow;
+}
+
 function TimeNow(Timefld, doprompt) {
 var txt;
 var d = new Date();
@@ -1431,7 +1444,6 @@ check in via Winlink Express. </span><span class="style9">&nbsp;</span></span><s
 <input name="timestamp" type="hidden" id="timestamp" size="30" />
 </span><input name="timestamp2" type="hidden" id="timestamp2" size="40" />
 </span><br />
-    <br />
     <span style="color: black;"><span style="font-family:  Arial, Helvetica, sans-serif;; color: black;">
 &nbsp;<span class="style1">&nbsp;</span></span><span class="style22">Send To</span></span>
 &nbsp; 
@@ -1441,6 +1453,7 @@ check in via Winlink Express. </span><span class="style9">&nbsp;</span></span><s
 &nbsp;&nbsp;&nbsp;</span>  <span class="style12"> <a href="javascript:clearsendto();" class="style23">Clear ALL &quot;Send To&quot; Entries.</a>
 <input name="internetcheck" type="hidden" id="internetcheck" value="{InternetAvailable} " />
 <input name="GPSvalid" type="hidden" id="GPSvalid" value="{GPSValid} " />
+<input name="Newsubject" type="hidden" id="Newsubject" />
 <br />
     <span style="color: black;"><span style="font-family:  Arial, Helvetica, sans-serif;; color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style23">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></span><span class="style49">Entries  will remain until you change or clear them</span><br />
      <span style="font-family:  Arial, Helvetica, sans-serif;;"></span>
@@ -1499,7 +1512,8 @@ check in via Winlink Express. </span><span class="style9">&nbsp;</span></span><s
 <input name="w3w" type="hidden" id="w3w" size="50" placeholder = "Ex: contrived.rides.thankfully" onkeypress="if(event.keyCode==13){return false;}"  onchange="convert3words(this.value);convertthis() ";/>    
     <em><span class="style12">&nbsp; </span></em> <em><span class="style12">&nbsp;<span style="color: black;"><span style="font-family:  Arial, Helvetica, sans-serif;; color: black;"><span style="color: black;"><span style="font-family:  Arial, Helvetica, sans-serif;; color: black;">
     <input name="GPS" type="hidden" id="GPS" value="{GPS_SIGNED_DECIMAL}" />
-    </span></span></span></span></span></em></em></p>
+</span></span></span></span></span></em></em></p>
+  <p><em></em></p>
   <p><span class="style12">&nbsp;&nbsp;&nbsp;LAT/LON and MGRS default to the center of the grid square listed in Express Settings, &nbsp;unless a GPS is used or Lat/LON<span class="style23">&nbsp;</span> or MGRS must be entered<br />
     <span class="style23">&nbsp;&nbsp;&nbsp;</span>    manually.</span><span class="style23"><span class="style12">&nbsp;</span> <strong>Without properly formatted GPS coordinates this form cannot be mapped in Winlink Express.</strong></span><span class="style12"><em> </em></span></p>
   </div>
@@ -1543,7 +1557,7 @@ Comments:T=j14</textarea>
 <td height="38"><span style="font-family:  Arial, Helvetica, sans-serif;;"> <span style="font-family:  Arial, Helvetica, sans-serif;">
   <input name="savebtn" type="button" id="savebtn"  onclick="SaveData()" value="Save Check in Data" />
 </span>&nbsp;&nbsp; 
-<input value="Submit" style="height: 28px; width: 52px; " size="8" name="Submit" onclick="checkform();createjson(); "; method="Post" id="Submit" enctype="multipart/form-data" class="SubmitBtn" type="submit" />
+<input value="Submit" style="height: 28px; width: 52px; " size="8" name="Submit" onclick="Getsubject();checkform();createjson(); "; method="Post" id="Submit" enctype="multipart/form-data" class="SubmitBtn" type="submit" />
 &nbsp; </span>
  <input type="reset" value="Reset Form" onclick="myreset();" />
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;

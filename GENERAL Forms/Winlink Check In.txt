@@ -1,6 +1,6 @@
 Form:Winlink_Check_In_Initial.html,Winlink_Check_In_Viewer.html
 To:<var MsgTo>
-Subject: Winlink Check In [<var Status>]-<var MsgSender>-<var Location>
+Subject: <var Newsubject>
 Readonly:True
 Msg:
 -

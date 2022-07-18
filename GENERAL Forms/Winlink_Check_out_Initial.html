@@ -1094,7 +1094,17 @@ if (x1==1 && x2==1) {// now set string for latlon
 	convertthis();
 } 
 }
-
+function Getsubject() {
+var myprompt = '';
+var temps = document.getElementById('Status').value;
+var templ = document.getElementById('Location').value;
+var tempsender = document.getElementById('MsgSender').value;
+myttemp = "Winlink Check Out "+temps+" - " +tempsender + " - " +templ;
+myprompt = "Winlink Check Out "+temps+" - " +tempsender + " - " +templ;
+var RightNow = prompt("Message Subject:",   myprompt);
+if (RightNow.length == 0) { RightNow = myttemp}
+document.getElementById('Newsubject').value = RightNow;
+}
 
 function checkform(){
 
@@ -1398,7 +1408,9 @@ if (x.search("NaN")!==-1){alert ('Invalid date please enter UTC date time as yyy
       <input title="Call sign or tactical being used to send mail" readonly="readonly" maxlength="16" size="17" id="MsgSender"  name="MsgSender" value="{MsgSender}" />
       <input name="attached_file" type="hidden" id="attached_file" value="FormData.txt" />
       <input name="Mapfilename" type="hidden" id="Mapfilename" value="Winlink Check Out" />
-      <br />
+      <span class="style12">
+      <input name="Newsubject" type="hidden" id="Newsubject" />
+      </span><br />
       <br />
       <span style="font-family:  Arial, Helvetica, sans-serif;;"></span></p>
 </div>
@@ -1475,7 +1487,7 @@ Comments:T=j14</textarea>
 <td height="38"><span style="font-family:  Arial, Helvetica, sans-serif;;"> <span style="font-family:  Arial, Helvetica, sans-serif;">
   <input name="savebtn" type="button" id="savebtn"  onclick="SaveData()" value="Save Check Out Data" />
 </span>&nbsp;&nbsp; 
-<input value="Submit" style="height: 28px; width: 52px; " size="8" name="Submit" onclick="checkform();createjson(); "; method="Post" id="Submit" enctype="multipart/form-data" class="SubmitBtn" type="submit" />
+<input value="Submit" style="height: 28px; width: 52px; " size="8" name="Submit" onclick="Getsubject();checkform();createjson(); "; method="Post" id="Submit" enctype="multipart/form-data" class="SubmitBtn" type="submit" />
 &nbsp; </span>
  <input type="reset" value="Reset Form" onclick="myreset();" />
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1488,10 +1500,10 @@ Comments:T=j14</textarea>
 &nbsp; &nbsp; &nbsp;
 &nbsp;</span></span>
 &nbsp; &nbsp; &nbsp;&nbsp;<span style="font-family:  Arial, Helvetica, sans-serif;;">&nbsp;
-&nbsp; <span class="style25">Ver 4.0.9.2</span><span style="font-size: 12px;"><span style="font-family:  Arial, Helvetica, sans-serif;;"><span style="font-size: 12px;">
+&nbsp; <span class="style25">Ver 4.0.9.3</span><span style="font-size: 12px;"><span style="font-family:  Arial, Helvetica, sans-serif;;"><span style="font-size: 12px;">
 <span style="font-family:  Arial, Helvetica, sans-serif;;"><span style="font-size: 12px;"><span style="font-family:  Arial, Helvetica, sans-serif;;"><span style="font-size: 12px;">
 <span style="font-family:  Arial, Helvetica, sans-serif;;"><span style="font-size: 12px;"><span style="font-family:  Arial, Helvetica, sans-serif;;"><span style="font-size: 12px;"><span style="font-family:  Arial, Helvetica, sans-serif;;"><span style="font-size: 12px;"><span style="font-family:  Arial, Helvetica, sans-serif;;"><span style="font-size: 12px;">
-<input name="Templateversion" type="hidden" id="Templateversion" value="Winlink Check out 4.0.9.1" />
+<input name="Templateversion" type="hidden" id="Templateversion" value="Winlink Check out 4.0.9.3" />
 </span></span></span></span></span></span></span></span></span></span></span></span></span></span>
 <input name="testCall" type="hidden" id="testCall" value="{MsgSender}" size="14" maxlength="</table>13" />
 </span></span></td>

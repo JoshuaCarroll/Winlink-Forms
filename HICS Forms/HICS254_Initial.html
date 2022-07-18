@@ -90,8 +90,8 @@ When targeted it fills the browser window.
 .popBox {
 	background:#ffffff;
 	position:absolute;
-	left:25%;
-	right:25%;
+	left:20%;
+	right:20%;
 	top:10%;
 	bottom:10%;
 	z-index:10;
@@ -291,6 +291,7 @@ width:120px;
 }
 
     .style4 {font-size: 16px}
+    .style5 {color: #FF0000}
     </style>
     <script>
 
@@ -417,6 +418,8 @@ var localt = d.toLocaleTimeString();
 var isostr = d.toISOString();
 monthname = shortmonth (thismonth);
 thismonth = thismonth + 1;
+if (thismonth < 10) { thismonth = "0"+thismonth};
+if (thisday < 10) { thisday = "0"+thisday};
 switch (TType) {
 case 'hms' :
 myprompt = h + ':' + m + ':' + s;
@@ -517,7 +520,7 @@ return text2.trim();
 }
 function Collect(){
 var datatosave;
-datatosave = "ICS-205"+ "\r";
+datatosave = "ICS-254"+ "\r";
 
 document.getElementById("Saveme").value = datatosave;
 
@@ -525,17 +528,7 @@ document.getElementById("Saveme").value = datatosave;
 
 function SaveData() {
 	var mydata= "";
-		// note get header info
-		
-		//var mydata=mydata + document.getElementById('Incident_Name').value+"\t";
-		//var mydata=mydata + document.getElementById('ActivityDateTime2').value+"\t";
-		//var mydata=mydata + document.getElementById('DateFrom').value+"\t";
-		//var mydata=mydata + document.getElementById('DateTo').value+"\t";
-		//var mydata=mydata + document.getElementById('TimeFrom').value+"\t";
-		//var mydata=mydata + document.getElementById('TimeTo').value+"\t";
-		
-		
-		
+		//		
 		
 	for (x = 1; x <11; x++) {
 
@@ -723,7 +716,107 @@ function parsestring(mType) {
   alert('You are running this form outside of Winlink.\n \nWhen you have completed the form, SAVE the data and then give or send the SAVED data file to the radio operator. The operator will load the SAVED data into the correct form and send via winlink. ');
  } else {document.getElementById('Submit').style.visibility='visible';  }
 } 
+//Export sTuff
+function ExportData(ToDo) {
+		var mydata= "";
+	for (x = 1; x <11; x++) {
+//<var Tag1>	<var Med1>	<var Name1>	<var Sex1>	<var Dob1>	<var TriaCat1>	
+//<var Loc1>	<var Loct1>	<var Disp1> 	<var Dispt1>
+			var mydata=mydata +  getEX(document.getElementById('Tag'+x).value)+",";
 
+		 		var mydata=mydata+  getEX(document.getElementById('Med'+x).value)+",";
+
+			var mydata=mydata+  getEX(document.getElementById('Name'+x).value)+",";
+		
+			var mydata=mydata+  getEX(document.getElementById('Sex'+x).value)+",";
+			
+			var mydata=mydata+  getEX(document.getElementById('Dob'+x).value)+",";
+			var mydata=mydata+  getEX(document.getElementById('TriaCat'+x).value)+",";
+			var mydata=mydata+  getEX(document.getElementById('Loc'+x).value)+",";
+			var mydata=mydata+  getEX(document.getElementById('Loct'+x).value)+",";
+			var mydata=mydata+  getEX(document.getElementById('Disp'+x).value)+",";
+			var mydata=mydata+  getEX(document.getElementById('Dispt'+x).value)+",";
+			
+				var mydata=mydata+"\n";
+						
+			 }   
+			 
+			if  ( ToDo== 'Attach' && document.getElementById('DoAttach').value == 'Yes')
+				{
+				var nametouse =  "HICS 254 data " + DateforFile()+".csv"
+				document.getElementById('attached_file').value =nametouse;
+				var excelheader = "Field Tag #,Medical Record #,Name,Sex,DOB-Age,Triage Category,Procedures Location,Procedures Time,Disposition,Disposition Time"+"\n";
+				document.getElementById('attached_text').value = excelheader+ mydata;
+				
+			} //attached_file
+			if (ToDo == 'Export')
+				 {
+				document.getElementById('parseme').value = mydata;
+				ExporttoExcel();
+				}
+			
+			
+			}
+			
+
+function ExporttoExcel(fileNameToSaveAs, textToWrite) {
+var textToWrite = document.getElementById('parseme').value; 
+var excelheader = "Field Tag #,Medical Record #,Name,Sex,DOB-Age,Triage Category,Procedures Location,Procedures Time,Disposition,Disposition Time";
+var textToWrite = excelheader + "\r" + textToWrite;
+var fileNameToSaveAs = "ICS254 " + DateforFile()+".csv";
+fileNameToSaveAs = prompt("", fileNameToSaveAs);
+
+  /* Saves a text string as a blob file*/  
+  var ie = navigator.userAgent.match(/MSIE\s([\d.]+)/),
+      ie11 = navigator.userAgent.match(/Trident\/7.0/) && navigator.userAgent.match(/rv:11/),
+      ieEDGE = navigator.userAgent.match(/Edge/g),
+      ieVer=(ie ? ie[1] : (ie11 ? 11 : (ieEDGE ? 12 : -1)));
+
+  if (ie && ieVer<10) {
+    console.log("No blobs on IE ver<10");
+    return;
+  }
+
+  var textFileAsBlob = new Blob([textToWrite], {
+    type: 'text/plain'
+  });
+
+  if (ieVer>-1) {
+    window.navigator.msSaveBlob(textFileAsBlob, fileNameToSaveAs);
+
+  } else {
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    downloadLink.onclick = function(e) { document.body.removeChild(e.target); };
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+  }
+}
+function getEX (str) {
+
+var line=str;
+
+if (line =='--') {line=''}
+//if (line =='FALSE') {line=''}
+//console.log(str);
+// fix quotes
+  line = line.replace(/[\u2014]/g, "--")        // emdash
+line = line.replace(/[\u2022]/g, "*")         // bullet
+line = line.replace(/[\u2018\u2019]/g, "'")   // smart single quotes
+line = line.replace(/[\u201C\u201D]/g, '"');  // smart double quotes
+ var addquote = false;
+ var position = line.search('"');
+if (position != -1){line = line.replace(/"/g, '""');addquote = true}
+
+var position = line.search(",");
+if (position != -1){ addquote = true}
+if (addquote==true) {var line = '"' +line+'"';} 
+
+
+return line;
+}
 </script></head>
 <body style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" alink="#000099" link="#000099" vlink="#990099">
     &nbsp;<br />
@@ -841,15 +934,18 @@ better than Portrait. <br />
 		TAB delineation and entry data needs to not exceed HTML entry box input lengths.<br />
 		10 columns and up to 10 rows of information.
         </p>
-        <textarea name="parseme" cols="80" rows="3" id="parseme" placeholder="Paste spreadsheet data here" ></textarea> 
-		<input type=button value="Parse Data" onClick="parsestring('P')">
+        <textarea name="parseme" cols="120" rows="11" id="parseme" placeholder="Paste spreadsheet data here" ></textarea> 
+		<input type=button value="Parse Data" onClick="parsestring('P');document.getElementById('closeme').click();">
 		
 		
         </span>
         <p align="left"></p>
       <a href="#links">Close this window</a> </div>
+
       <!-- The close pop-up link correctly positioned at the end of the content block -->
-      <a href="#links" class="close"><span>Back to links</span></a> </div>
+
+      <a href="#links" id='closeme'>Close this window</a> 
+	   </div>
   </div>
       <table style="width: 1214px; height: 856px;" align="center" border="0">
         <tbody>
@@ -877,11 +973,14 @@ better than Portrait. <br />
                       <br />
                       <br />
                       <span style="color: rgb(204, 0, 0);">&nbsp;&nbsp; &nbsp;&nbsp; </span>Page<span style="color: rgb(204, 0, 0);"> </span>
-                      <input style="color: rgb(204, 0, 0);" maxlength="2" size="3" name="Page" id="Page" required="required" />
+                      <input  maxlength="2" size="3" name="Page" id="Page" required="required" />
                       <span >&nbsp;Of&nbsp;&nbsp;
-                      <input style="color: rgb(204, 0, 0);" required="required" maxlength="2" size="3" name="Page1" id="Page1" />&nbsp;&nbsp;&nbsp;&nbsp;</small>  <input type="button" value=" Load HICS254 Data " onclick="document.getElementById('txtfiletoread').click();" /> 
+                      <input required="required" maxlength="2" size="3" name="Page1" id="Page1" />&nbsp;&nbsp;&nbsp;&nbsp;</small>  <input type="button" value=" Load HICS254 Data " onclick="document.getElementById('txtfiletoread').click();" /> 
                       <br />
                         <small>
+  <input name="attached_file" type="hidden" id="attached_file" value= "" />
+
+                <textarea name="attached_text"  cols="140" rows="3" id="attached_text" style="display: none;"></textarea>
                                             </div></td>
 <td style="width: 50%; vertical-align: top; text-align: justify;" colspan="2">&nbsp;&nbsp;
 <div align="left"> &nbsp;&nbsp;2. Operational Period
@@ -1136,32 +1235,44 @@ X-ray, Etc)</span></td>
 </td>
 </tr>
 <tr>
-<td style="height: 30px; text-align: center; vertical-align: middle;" colspan="3"><div align="left"><b><span style="font-weight: normal;"><br />
+<td style="height: 30px; text-align: center; vertical-align: middle;" colspan="3"><div align="left">
+  <p><b><span style="font-weight: normal;"><br />
 &nbsp;&nbsp; 4.</span><span style="font-weight: normal;">
-  Prepared By</span></b><big>:</big><b>
+    Prepared By</span></b><big>:</big><b>
 &nbsp;
-  <input required="required" maxlength="40" size="45" id="PreparedName" name="PreparedName" placeholder="Name here same as signature." />
+    <input required="required" maxlength="40" size="45" id="PreparedName" name="PreparedName" placeholder="Name here same as signature." />
 &nbsp;</b><b>&nbsp;&nbsp;</b>Date
-  <input title="Can be overwritten if needed." maxlength="11" size="12" id="Date_Time" name="Date_Time" onclick="DateTime('fulldate',this.id)" placeholder="Click for Date" required="required" />
+    <input title="Can be overwritten if needed." maxlength="11" size="12" id="Date_Time" name="Date_Time" onclick="DateTime('fulldate',this.id)" placeholder="Click for Date" required="required" />
 &nbsp;Time:<b>
 &nbsp;</b>
-  <input maxlength="10" size="11" id="Time" name="Time" onclick="DateTime('hm',this.id)" placeholder="Click for Time" required="required" />
-  <b>
+    <input maxlength="10" size="11" id="Time" name="Time" onclick="DateTime('hm',this.id)" placeholder="Click for Time" required="required" />
+    <b>
 &nbsp; <span style="color: rgb(153, 0, 0);">&nbsp;</span></b>Facility<span style="color: rgb(153, 0, 0);">:</span><b><span style="color: rgb(153, 0, 0);">&nbsp;</span>
 &nbsp;
-  <input required="required" maxlength="40" size="45" name="Facility" id="Facility" placeholder="Use full name of facility." />
+    <input required="required" maxlength="40" size="45" name="Facility" id="Facility" placeholder="Use full name of facility." />
 &nbsp;&nbsp;
-  <br />
+    </b></p>
+  <p><b><span style="font-weight: normal;">&nbsp;&nbsp;&nbsp; <span class="style5">&nbsp;</span></span><span class="style5">Attach CSV data file to message?</span>    
+      <input name="AddAttachment" type="radio" value="Yes" onclick="document.getElementById('DoAttach').value =  this.value"  />
+    Yes <span style="font-weight: normal;">&nbsp;&nbsp; </span>
+    <input name="AddAttachment" type="radio" value="No" checked="checked"onclick="document.getElementById('DoAttach').value =  this.value"  /> 
+    No
+<span style="font-weight: normal;">&nbsp;</span>
+<input name="DoAttach" type="hidden" id="DoAttach" value="No" />
+<br />
 &nbsp; &nbsp;&nbsp;</b><b><b>
-</b></b></div></td>
+</b></b></p>
+</div></td>
 </tr>
 <tr>
 <td colspan="3"><input type="button" value="Save HICS254 Data"  onclick="SaveData()" />
 <big> &nbsp;<big></big><big></big>
-  <input class="SubmitBtn" enctype="multipart/form-data" id="Submit" method="Post" name="Submit" value=" Submit " type="submit" /></big>
+  <input class="SubmitBtn" enctype="multipart/form-data" id="Submit" onclick="ExportData('Attach')"method="Post" name="Submit" value=" Submit " type="submit" /></big>
 &nbsp; <input class="BtnFormat2" value="Reset Form " name="ResetForm"  type="reset" />
 &nbsp;
-&nbsp; &nbsp;<span class="style3"> &nbsp;&nbsp;
+&nbsp; &nbsp;<span class="style3"> &nbsp;&nbsp;<b><span style="font-weight: normal;"><big>
+<input type="button" value="Export Data to CSV file"  onclick="ExportData('Export')" />
+</big></span></b>
 </span><span style="color: rgb(204, 0, 0);">&nbsp;</span> &nbsp; &nbsp; &nbsp; &nbsp;
 &nbsp;
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1170,11 +1281,11 @@ X-ray, Etc)</span></td>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-&nbsp; &nbsp; &nbsp;<span style="font-style: italic;">&nbsp;<span style="font-weight: bold;">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span><small>&nbsp;</small> &nbsp;Vers 8.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp; &nbsp; &nbsp;<span style="font-style: italic;">&nbsp;<span style="font-weight: bold;">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span><small>&nbsp;</small> &nbsp;Vers 9.0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <input name="testCall" type="hidden" id="testCall" value="{MsgSender}" size="14" maxlength="13" />
 <input name="Templateversion" type="hidden"
 
-                                    id="Templateversion" value="HICS 254 v 8.2" />
+                                    id="Templateversion" value="HICS 254 v 9.0" />
 </span></td>
 </tr>
 </tbody>
