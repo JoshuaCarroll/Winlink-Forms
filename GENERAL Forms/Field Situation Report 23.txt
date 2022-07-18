@@ -1,0 +1,53 @@
+Form:Field Situation Report 23_Initial.html,Field Situation Report 23_viewer.html 
+To: <var MsgTo>
+Cc: <var MsgCc>
+Readonly:True
+Subject://WL2K <var Precedence>/ Field Situation Report 0.23 <var UDTGfld>
+
+Readonly:True
+Msg:
+
+PRECEDENCE: <var Precedence>   
+DATE/TIME Group: <var UDTGfld>   
+TASK# <var MsgNR>
+AGENCY: <var Title>
+FROM: <var MsgSender>
+TO: <var MsgTo>
+INFO (CC): <var MsgCc>
+BT
+UNCLASS
+
+SUBJ Field Situation Report <var UDTGfld> 
+
+1.EMERGENT/LIFE SAFETY Need <var Safetyneed>
+Needs: <var Comm0>
+
+2. City:<var City>  County:<var County> State: <var State> Territory:<var Territory>
+3. Latitude:<var gpsLat>  Longitude:<var gpsLon>   MGRS:<var MGRS> 
+4. POTS landlines functioning: [ <var k4> ]  <var Comm1>
+5. VOIP landlines functioning: [ <var k4A> ]  <var Comm1A>
+6. Cell phone voice calls functioning: [<var k5> ]  <var Comm2>
+7. Cell phone phone texts functioning:  [<var k5A> ]   <var Comm2A>
+8. AM/FM Broadcast Stations functioning  [ <var AMFM> ]  <var Comm3>
+9. TV Stations functioning  [ <var TVStatus> ]  <var Comm4>
+10. Public Water Works functioning  [ <var WaterWorks> ]  <var Comm5>
+11. Commercial Power functioning [ <var k9> ]  <var Comm6>
+12. Commercial Power Stable: [ <var k9A> ] <var Comm6A>
+13. Internet functioning  [ <var Inter> ] <var Comm7>
+14. NOAA/NWS Weather Radio loud and clear [ <var NOAA> ]  <var NOAAcom>
+14. Additional Comments:  <var Message>
+15. POC <var POC>
+
+BT
+NNNN
+
+[No changes or editing of this message are allowed]
+
+------------------------------------
+Express Sending Station: <MsgSender>
+Express Version: <ProgramVersion>
+Template Version: <var Templateversion>
+
+
+
+

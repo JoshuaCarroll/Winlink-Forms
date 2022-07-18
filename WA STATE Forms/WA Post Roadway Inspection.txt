@@ -1,0 +1,48 @@
+form:WA Post Roadway Inspection initial.html,WA Post Roadway Inspection Viewer.html
+Subject: Post Incident Roadway Inspection: Region: <var Region> , Route: <var Route>, <var InspectDate> <var InspectTime>
+
+Msg:
+Washington State Department of Transportation
+
+Level 1 Post Incident Roadway Inspection Form
+1. Region: <var Region> 
+2. Inspector's Name: <var Inspector> 
+3. Route: <var Route>
+4. Milepost: <var Milepost> 
+5. Direction <var Direction> 
+6. Date: <var InspectDate> 
+7. Time: <var InspectTime> 
+8. County: <var County> 
+9. Location: <var Location> 
+10. Remarks
+<var Remarks>
+-----
+
+Roadway
+11. <var A1> Cracking 
+12. <var A2> Buckling 
+13. <var A3> Heaving or rolling 
+14. <var A4> Pavement separation 
+15. <var A5> Change in configuration- striping or lane shift 
+16. <var A6> Change in roadway surface 
+17. <var A7> Signs, VMS and sign bridges 
+18. <var A8> Drainage 
+
+Roadway Status
+19. <var A9> Open 
+20. <var A10> Lane closure 
+21. <var A11> Full closure 
+22. <var A12> Restricted 
+
+Geo-technical Issues 
+23. <var A13> Shoulder settlement 
+24. <var A14> Sags in roadway safety features (guardrail) 
+25. <var A15> Movement above or below tilted trees 
+26. <var A16> Debris on roadway 
+27. <var A17> Sloughing slopes 
+
+
+---------------------------
+
+Winlink Express: <ProgramVersion>-<Callsign>
+<var Templateversion>
